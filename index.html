@@ -15,9 +15,29 @@
 
 <body>
     <main class="container">
-        <h1>hello</h1>
-
-
+        <!-- search field  -->
+        <nav class="navbar navbar-light bg-light border border-3 m-4 p-4 ">
+            <div class="container-fluid ">
+                <h2 class="title">Search phone</h2>
+                <div class="d-flex">
+                    <input id="search-field" type="text" class="form-control" placeholder="search mobile">
+                    <button onclick="allMobiles()" class="btn btn-outline-secondary">Search</button>
+                </div>
+            </div>
+        </nav>
+        <!-- mobile container -->
+        <div id="mobile-container" class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- <div class="col">
+                <div class="card h-100">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h4>Name:</h4>
+                        <h4>Brand:</h4>
+                        <button id="explore-btn" class="btn btn-outline-secondary ">Explore</button>
+                    </div>
+                </div>
+            </div> -->
+        </div>
     </main>
     <!-- js file -->
     <script src="js/phone.js"></script>
