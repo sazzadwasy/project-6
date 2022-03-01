@@ -1,21 +1,23 @@
 const allMobiles = () => {
     const searchField = document.getElementById('search-field').value
-    console.log(searchField)
 
     // console.log(searchField)
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchField}`
     fetch(url)
         .then(res => res.json())
-        .then(data => showMobileInUi(data.data))
+        .then(data => showMobileInUi(data.data.slice(0, 20)))
 }
 const showMobileInUi = (mobiles) => {
-    // console.log(mobiles)
-    const mobileParent = document.getElementById('mobile-container')
-    mobileParent.textContent = '';
-    for (const mobile of mobiles) {
-        // console.log(mobile)
-        const div = document.createElement('div')
-        div.innerHTML = `<div class="col shadow">
+    if (mobiles == '') {
+        console.log('no result found')
+    }
+    else {
+        const mobileParent = document.getElementById('mobile-container')
+        mobileParent.textContent = '';
+        for (const mobile of mobiles) {
+            // console.log(mobile)
+            const div = document.createElement('div')
+            div.innerHTML = `<div class="col shadow">
         <div class="card h-100">
             <img src="${mobile.image}" class="w-50 m-auto" alt="...">
             <div class="card-body">
@@ -25,14 +27,16 @@ const showMobileInUi = (mobiles) => {
             </div>
         </div>
     </div>`
-        mobileParent.appendChild(div)
+            mobileParent.appendChild(div)
+        }
     }
+    // console.log(mobiles)
+
 
 }
 const getDetails = (mobileId) => {
-    console.log(mobileId)
+    // console.log(mobileId)
     const url = `https://openapi.programming-hero.com/api/phone/${mobileId}`
-    // console.log(url)
     fetch(url)
         .then(res => res.json())
         .then(data => showDetailOnTop(data.data))
@@ -40,6 +44,10 @@ const getDetails = (mobileId) => {
 const showDetailOnTop = (details) => {
     console.log(details)
     const topParent = document.getElementById('detail-container')
+    topParent.textContent = ''
+    let [Faceid, accelerometer, gyro, proximity, compass, barometer] = details.mainFeatures.sensors
+    // console.log(Faceid, accelerometer, gyro, proximity, compass, barometer)
+
     const div = document.createElement('div')
     div.innerHTML = `<div class="card mb-3 shadow">
     <img src="${details.image}" class="card-img-top w-25 m-auto" alt="...">
@@ -50,6 +58,8 @@ const showDetailOnTop = (details) => {
        <P class="fw-bold">Display: ${details.mainFeatures.displaySize}</P>
        <P class="fw-bold">Chipset: ${details.mainFeatures.chipSet}</P>
        <P class="fw-bold">Usb: ${details.others.USB}</P>
+       <P class="fw-bold">Sensors: ${Faceid},${accelerometer},${gyro},${proximity},${compass},${barometer}</P>
+       <P class="fw-bold">Release Date: ${details.releaseDate}</P>
       
     </div>
 </div>`
