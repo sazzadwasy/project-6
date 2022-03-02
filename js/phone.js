@@ -1,23 +1,26 @@
 const allMobiles = () => {
     const searchField = document.getElementById('search-field').value
-
+    document.getElementById('search-field').value = ''
+    document.getElementById('mobile-container').textContent = ''
+    document.getElementById('detail-container').textContent = ''
     // console.log(searchField)
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchField}`
     fetch(url)
         .then(res => res.json())
         .then(data => showMobileInUi(data.data.slice(0, 20)))
 }
+
 const showMobileInUi = (mobiles) => {
     if (mobiles == '') {
-        console.log('no result found')
+        document.getElementById('validation').style.display = 'block'
     }
     else {
+        document.getElementById('validation').style.display = 'none'
         const mobileParent = document.getElementById('mobile-container')
-        mobileParent.textContent = '';
         for (const mobile of mobiles) {
             // console.log(mobile)
             const div = document.createElement('div')
-            div.innerHTML = `<div class="col shadow">
+            div.innerHTML = `<div class="col shadow p-4">
         <div class="card h-100">
             <img src="${mobile.image}" class="w-50 m-auto" alt="...">
             <div class="card-body">
@@ -44,16 +47,15 @@ const getDetails = (mobileId) => {
 const showDetailOnTop = (details) => {
     console.log(details)
     const topParent = document.getElementById('detail-container')
-    topParent.textContent = ''
     let [Faceid, accelerometer, gyro, proximity, compass, barometer] = details.mainFeatures.sensors
     // console.log(Faceid, accelerometer, gyro, proximity, compass, barometer)
 
     const div = document.createElement('div')
-    div.innerHTML = `<div class="card mb-3 shadow">
-    <img src="${details.image}" class="card-img-top w-25 m-auto" alt="...">
+    div.innerHTML = `<div class="card mb-3 shadow p-4">
+    <img src="${details.image}" class="dImage" alt="...">
     <div class="card-body">
-       <P class="fw-bold">Brand:${details.name}</P>
-       <P class="fw-bold">Brand:${details.brand}</P>
+       <h5 class="fw-bold">Nmae: ${details.name}</h5>
+       <h5 class="fw-bold">Brand: ${details.brand}</h5>
        <P class="fw-bold">Storage: ${details.mainFeatures.storage}</P>
        <P class="fw-bold">Display: ${details.mainFeatures.displaySize}</P>
        <P class="fw-bold">Chipset: ${details.mainFeatures.chipSet}</P>

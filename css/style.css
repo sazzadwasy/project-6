@@ -1,3 +1,13 @@
 .title{
     color: grey;
 }
+#validation{
+    display: none;
+    text-align: center;
+    color: rgba(199, 35, 35, 0.986);
+}
+.dImage{
+    margin: auto;
+    width: 200px;
+    height: 300px;
+}
