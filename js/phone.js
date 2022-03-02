@@ -32,10 +32,9 @@ const showMobileInUi = (mobiles) => {
     </div>`
             mobileParent.appendChild(div)
         }
+        // document.getElementById('validation').style.display = 'none'
     }
     // console.log(mobiles)
-
-
 }
 const getDetails = (mobileId) => {
     // console.log(mobileId)
@@ -45,24 +44,27 @@ const getDetails = (mobileId) => {
         .then(data => showDetailOnTop(data.data))
 }
 const showDetailOnTop = (details) => {
-    console.log(details)
+    // console.log(details)
     const topParent = document.getElementById('detail-container')
-    let [Faceid, accelerometer, gyro, proximity, compass, barometer] = details.mainFeatures.sensors
-    // console.log(Faceid, accelerometer, gyro, proximity, compass, barometer)
-
+    topParent.textContent = ''
     const div = document.createElement('div')
     div.innerHTML = `<div class="card mb-3 shadow p-4">
     <img src="${details.image}" class="dImage" alt="...">
     <div class="card-body">
-       <h5 class="fw-bold">Nmae: ${details.name}</h5>
-       <h5 class="fw-bold">Brand: ${details.brand}</h5>
-       <P class="fw-bold">Storage: ${details.mainFeatures.storage}</P>
+       <h4 class="fw-bold text-center"><span class="text-success">Name:</span> ${details.name}</h4>
+       <h4 class="fw-bold text-center"><span class="text-success">Brand:</span> ${details.brand}</h4>
+       <h5 class="fw-bold text-center"><span class="text-danger">Release Date:</span> ${details.releaseDate ? details.releaseDate : 'Release date is not available'}</h5>
+       <h2>Main Features :</h2>
+       <p class="fw-bold">Storage: ${details.mainFeatures.storage}</P>
        <P class="fw-bold">Display: ${details.mainFeatures.displaySize}</P>
        <P class="fw-bold">Chipset: ${details.mainFeatures.chipSet}</P>
-       <P class="fw-bold">Usb: ${details.others.USB}</P>
-       <P class="fw-bold">Sensors: ${Faceid},${accelerometer},${gyro},${proximity},${compass},${barometer}</P>
-       <P class="fw-bold">Release Date: ${details.releaseDate}</P>
-      
+       <P class="fw-bold">Chipset: ${details.mainFeatures.memory}</P>
+       <P class="fw-bold">Sensors: ${details.mainFeatures.sensors}
+       <h2>Others :</h2>
+       <P class="fw-bold">USB: ${details.others.Bluetooth}</P>
+       <P class="fw-bold">WALN: ${details.others.WLAN}</P>
+       <P class="fw-bold">USB: ${details.others.USB}</P>
+       <P class="fw-bold">GPS: ${details.others.GPS}</P>    
     </div>
 </div>`
     topParent.appendChild(div)
